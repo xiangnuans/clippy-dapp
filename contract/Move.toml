@@ -1,0 +1,17 @@
+[package]
+name = "evermove_nft"
+version = "1.0.0"
+authors = []
+
+[addresses]
+evermove_nft = "_"
+
+[dev-addresses]
+evermove_nft = "0xcafe"
+
+[dependencies]
+AptosFramework = { git = "https://github.com/aptos-labs/aptos-framework.git", rev = "mainnet", subdir = "aptos-framework" }
+AptosToken = { git = "https://github.com/aptos-labs/aptos-framework.git", rev = "mainnet", subdir = "aptos-token" }
+AptosTokenObjects = { git = "https://github.com/aptos-labs/aptos-framework.git", rev = "mainnet", subdir = "aptos-token-objects" }
+
+[dev-dependencies] 
