@@ -356,9 +356,7 @@ contract MintNFT {
 
 ### 4. **总结**
 
-以上技术框架为跨链NFT交易提供了完整的合约设计和实现思路，包括NFT的锁定、签名验证、跨链桥接以及目标链的重铸过程。通过0G DA层的数据可用性，整个
-
-过程可以更加高效、安全、无缝地进行。
+以上技术框架为跨链NFT交易提供了完整的合约设计和实现思路，包括NFT的锁定、签名验证、跨链桥接以及目标链的重铸过程。通过0G DA层的数据可用性，整个过程可以更加高效、安全、无缝地进行。
 
 
 ### Key Features of the EVM Chain NFT Contract:
@@ -390,7 +388,7 @@ The contract provides a solid foundation for the NFT cross-chain system describe
 
 The BNB Chain NFT Contract implements the receiver side of the cross-chain NFT system. This contract focuses on minting new NFTs when they are transferred from other chains (like Ethereum) and burning them when they are sent back. Here are the key features:
 
-### Key Features:
+### Key Features of The BNB Chain NFT Contract：
 
 1. **Cross-Chain Minting**:
    - `mintFromCrossChain()` function creates new NFTs on BNB Chain corresponding to locked NFTs on other chains
@@ -427,7 +425,7 @@ This implementation ensures secure, efficient cross-chain NFT transfers utilizin
 
 This 0G DA Layer Integration Contract serves as the central component of the cross-chain NFT system, providing data availability and verification services. Here are the key features and functionality:
 
-### Key Features
+### Key Features Of the 0G DA Layer Integration Contract：
 
 1. **Data Storage and Management:**
    - Stores comprehensive NFT data including original chain information, current status, and metadata
