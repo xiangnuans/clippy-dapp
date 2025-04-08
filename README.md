@@ -1,62 +1,62 @@
-20250409 0G DA 跨链桥接
-### 技术文档：0G DA 层与跨链NFT实现
+20250409 0G DA Cross-Chain Bridge
+### Technical Documentation: 0G DA Layer and Cross-Chain NFT Implementation
 
-#### 项目概述
+#### Project Overview
 
-本项目利用0G的数据可用性（DA）层，打造跨链NFT交易系统，以确保在多链环境中，NFT可以高效、安全、低成本地流转。通过跨链桥接与0G的DA层，我们可以解决数据存储、验证和传输效率问题，从而提升NFT在不同链之间的互操作性。
+This project leverages 0G's Data Availability (DA) layer to build a cross-chain NFT trading system, ensuring efficient, secure, and cost-effective NFT transfers across multiple chains. Through cross-chain bridging and 0G's DA layer, we solve data storage, validation, and transmission efficiency issues, thereby enhancing NFT interoperability across different chains.
 
-#### 1. **0G DA 层介绍**
+#### 1. **0G DA Layer Introduction**
 
-0G的DA层是一种可扩展、高效的数据可用性解决方案，支持大规模去中心化数据存储和快速验证。它允许跨链应用和智能合约通过一个高效、分布式的存储系统快速查询、验证和存取数据。
+0G's DA layer is a scalable, efficient data availability solution that supports large-scale decentralized data storage and rapid validation. It enables cross-chain applications and smart contracts to quickly query, validate, and access data through an efficient, distributed storage system.
 
-- **无限可扩展**：0G DA层通过水平扩展共识网络，使系统能够处理更多交易和数据，提升网络吞吐量。
-- **模块化架构**：0G将存储、数据可用性和共识分离，每个模块可以根据需要进行优化，提升数据处理效率。
-- **去中心化AI操作系统**：0G支持去中心化AI应用，提供高吞吐量基础设施，满足大数据量处理需求，尤其是AI工作负载。
+- **Infinite Scalability**: 0G DA layer scales horizontally through its consensus network, enabling the system to handle more transactions and data, improving network throughput.
+- **Modular Architecture**: 0G separates storage, data availability, and consensus, allowing each module to be optimized as needed, enhancing data processing efficiency.
+- **Decentralized AI Operating System**: 0G supports decentralized AI applications, providing high-throughput infrastructure to meet large data processing needs, especially for AI workloads.
 
-#### 2. **0G DA 与跨链NFT交易流程**
+#### 2. **0G DA and Cross-Chain NFT Transaction Flow**
 
-##### 2.1 **NFT 锁定与签名生成**
-1. **用户操作**：用户在EVM链（如以太坊）选择其NFT进行锁定操作。前端向后端提交NFT ID、用户地址等信息。
-2. **后端签名生成**：后端系统使用用户地址与NFT相关信息生成签名字符串，确保锁定操作的合法性和不可篡改性。签名会存储在后端的中心化数据库中。
-3. **签名返回前端**：生成的签名字符串通过API返回给前端。
+##### 2.1 **NFT Locking and Signature Generation**
+1. **User Operation**: Users select their NFT on the EVM chain (e.g., Ethereum) for locking. The frontend submits NFT ID, user address, and other information to the backend.
+2. **Backend Signature Generation**: The backend system generates signature strings using user addresses and NFT-related information, ensuring the legitimacy and immutability of the locking operation. Signatures are stored in the backend's centralized database.
+3. **Signature Return**: The generated signature string is returned to the frontend via API.
 
-##### 2.2 **NFT 数据转移与验证**
-1. **前端提交请求**：用户确认交易后，前端提交锁定的NFT ID、用户地址、签名信息至BNB链合约。
-2. **合约验证签名**：BNB链合约验证提交的签名是否有效，验证通过后开始重铸NFT。
-3. **合约重铸NFT**：合约根据签名信息，重新铸造NFT，并将其发送到目标用户地址。
+##### 2.2 **NFT Data Transfer and Validation**
+1. **Frontend Request Submission**: After user confirmation, the frontend submits the locked NFT ID, user address, and signature information to the BNB chain contract.
+2. **Contract Signature Verification**: The BNB chain contract verifies the submitted signature's validity, and upon validation, begins NFT reminting.
+3. **Contract NFT Reminting**: The contract remints the NFT based on signature information and sends it to the target user address.
 
-##### 2.3 **0G DA 层的角色**
-- **数据存储**：NFT的交易记录、签名和锁定状态将存储在0G的分布式存储系统中，确保数据的可用性和验证。
-- **数据可用性验证**：在跨链操作过程中，0G DA层确保数据在不同链之间的可用性。通过其独特的共识机制和高吞吐量设计，能够实时验证跨链操作中的数据有效性。
+##### 2.3 **0G DA Layer's Role**
+- **Data Storage**: NFT transaction records, signatures, and lock status are stored in 0G's distributed storage system, ensuring data availability and validation.
+- **Data Availability Validation**: During cross-chain operations, the 0G DA layer ensures data availability across different chains. Through its unique consensus mechanism and high-throughput design, it can validate cross-chain operation data in real-time.
 
-#### 3. **技术架构**
+#### 3. **Technical Architecture**
 
-##### 3.1 **前端**
-- **功能**：用户在前端界面上选择NFT进行锁定操作，获取签名，提交签名验证请求。
-- **技术栈**：React、Vue.js，Web3.js、Ethers.js用于与区块链交互。
+##### 3.1 **Frontend**
+- **Functions**: Users select NFTs for locking, obtain signatures, and submit signature verification requests through the frontend interface.
+- **Tech Stack**: React, Vue.js, Web3.js, Ethers.js for blockchain interaction.
 
-##### 3.2 **后端**
-- **功能**：生成签名、记录数据、验证签名并与0G DA层交互。
-- **技术栈**：Node.js（Express/Koa）、Web3.js、Ethers.js，MySQL/PostgreSQL。
+##### 3.2 **Backend**
+- **Functions**: Generate signatures, record data, verify signatures, and interact with 0G DA layer.
+- **Tech Stack**: Node.js (Express/Koa), Web3.js, Ethers.js, MySQL/PostgreSQL.
 
-##### 3.3 **0G DA 层**
-- **数据存储**：0G的模块化存储系统会将NFT锁定信息、签名等数据分布式存储在多个存储节点中。
-- **共识机制**：0G通过验证随机选出的数据可用性节点（DA节点）来确保数据的有效性，防止数据丢失或篡改。
+##### 3.3 **0G DA Layer**
+- **Data Storage**: 0G's modular storage system distributes NFT lock information and signatures across multiple storage nodes.
+- **Consensus Mechanism**: 0G ensures data validity through validation of randomly selected data availability nodes (DA nodes), preventing data loss or tampering.
 
-##### 3.4 **跨链桥接**
-- **EVM链与BNB链互通**：利用0G DA层存储和验证NFT数据，通过跨链桥将EVM链上的NFT转移到BNB链。确保NFT在链间的完整性和一致性。
+##### 3.4 **Cross-Chain Bridge**
+- **EVM Chain and BNB Chain Interoperability**: Utilize 0G DA layer for storing and validating NFT data, transferring NFTs from EVM chain to BNB chain through cross-chain bridges. Ensure NFT integrity and consistency across chains.
 
-#### 4. **核心技术实现**
+#### 4. **Core Technology Implementation**
 
-##### 4.1 **签名生成与验证**
-签名用于确保NFT锁定操作的真实性和不可篡改性。以下是签名生成与验证的示例代码：
+##### 4.1 **Signature Generation and Verification**
+Signatures are used to ensure the authenticity and immutability of the NFT locking operation. Below is an example code for signature generation and verification:
 
-- **签名生成**（Node.js + Ethers.js）：
+- **Signature Generation** (Node.js + Ethers.js):
 
 ```javascript
 const { ethers } = require('ethers');
 
-// 生成签名
+// Generate signature
 async function generateSignature(nftId, userAddress) {
     const privateKey = 'YOUR_PRIVATE_KEY';
     const wallet = new ethers.Wallet(privateKey);
@@ -69,7 +69,7 @@ async function generateSignature(nftId, userAddress) {
 }
 ```
 
-- **签名验证**（Solidity 合约）：
+- **Signature Verification** (Solidity contract):
 
 ```solidity
 function verifySignature(bytes32 dataHash, bytes memory signature, address expectedSigner) public pure returns (bool) {
@@ -82,62 +82,62 @@ function recoverSigner(bytes32 dataHash, bytes memory signature) public pure ret
 }
 ```
 
-##### 4.2 **0G DA 层数据验证**
-0G的DA层通过验证数据的可用性来保证跨链NFT交易的数据完整性：
+##### 4.2 **0G DA Layer Data Validation**
+0G's DA layer ensures data integrity across cross-chain NFT transactions by verifying data availability:
 
 ```solidity
-// 0G DA 层验证数据可用性
+// 0G DA layer data availability verification
 function verifyDataAvailability(bytes32 dataHash) public view returns (bool) {
-    // 使用VRF从DA节点获取数据可用性证明
+    // Use VRF to get data availability proof from DA nodes
     bytes32 proof = getProofFromDA(dataHash);
     return validateProof(proof, dataHash);
 }
 ```
 
-#### 5. **部署与集成**
+#### 5. **Deployment and Integration**
 
-##### 5.1 **部署0G DA层**
-- **节点部署**：部署0G DA层存储节点，确保数据的冗余存储和快速访问。
-- **跨链集成**：通过合约和API将EVM链和BNB链的NFT互通能力集成到0G DA层。
+##### 5.1 **Deploy 0G DA Layer**
+- **Node Deployment**: Deploy 0G DA layer storage nodes to ensure redundant storage and fast access.
+- **Cross-Chain Integration**: Integrate NFT interoperability between EVM chain and BNB chain through contracts and APIs.
 
-##### 5.2 **数据同步与验证**
-- 0G DA层提供跨链数据同步机制，确保NFT从EVM链到BNB链的转移过程中，所有数据的完整性和一致性。
-- 利用0G的共识机制和去中心化验证系统，确保在不同区块链网络间的无缝操作。
+##### 5.2 **Data Synchronization and Validation**
+- 0G DA layer provides cross-chain data synchronization mechanism to ensure data integrity and consistency during NFT transfer from EVM chain to BNB chain.
+- Use 0G's consensus mechanism and decentralized verification system to ensure seamless operations across different blockchain networks.
 
-#### 6. **应用场景**
+#### 6. **Application Scenarios**
 
-- **跨链NFT交易**：通过0G DA层，NFT可以在EVM链、BNB链等多个区块链之间无缝流动，提供安全、高效、低成本的跨链交易解决方案。
-- **去中心化数据市场**：0G DA层的高效数据存储和验证能力使其成为去中心化数据市场的理想选择，支持快速查询和实时数据更新。
-- **去中心化AI应用**：利用0G DA层的可扩展性和高吞吐量，为AI模型提供去中心化存储和数据验证服务。
+- **Cross-Chain NFT Trading**: Through 0G DA layer, NFTs can be seamlessly transferred across multiple blockchain networks, providing secure, efficient, and cost-effective cross-chain trading solutions.
+- **Decentralized Data Market**: 0G DA layer's high-efficiency data storage and validation capabilities make it an ideal choice for decentralized data marketplaces, supporting fast querying and real-time data updates.
+- **Decentralized AI Applications**: Utilize 0G DA layer's scalability and high throughput to provide decentralized storage and data validation services for AI models.
 
-#### 7. **总结**
-本项目通过0G DA层实现跨链NFT交易，提供了一个高效、安全、低成本的数据可用性解决方案。0G的分布式存储与验证机制、去中心化共识机制和高吞吐量设计，使得NFT的跨链流动成为可能，提升了用户体验，并为去中心化AI与Web3应用的进一步发展提供了强有力的基础设施支持。
+#### 7. **Summary**
+This project implements cross-chain NFT trading through 0G DA layer, providing an efficient, secure, and cost-effective data availability solution. 0G's distributed storage and verification mechanism, decentralized consensus mechanism, and high-throughput design enable NFT cross-chain transfers, enhancing user experience, and providing strong infrastructure support for decentralized AI and Web3 applications.
 
 
-### 合约的技术框架
+### Contract Technology Framework
 
-为了实现跨链NFT交易及其在0G DA层的无缝对接，我们需要设计一套合约框架，确保NFT能够在多个链之间安全、透明地流动。该框架的核心部分包括NFT的锁定、签名验证、重铸、跨链桥接、以及数据验证等功能。
+To implement seamless cross-chain NFT trading and integration with 0G DA layer, we need to design a contract framework that ensures NFTs can be safely and transparently transferred across multiple chains. The core components of this framework include NFT locking, signature verification, reminting, cross-chain bridging, and data validation.
 
-以下是这个合约的技术框架设计。
-
----
-
-### 1. **跨链NFT合约技术框架**
-
-#### 1.1 **主要功能模块**
-- **NFT锁定合约**：用于在源链上锁定NFT并生成签名，确保用户NFT的合法性。
-- **签名验证合约**：用于验证签名的真实性，确保NFT的锁定与转移是由合法用户发起。
-- **重铸合约**：在目标链上重铸NFT，确保用户在跨链过程中能够获得新的NFT。
-- **跨链桥接合约**：用于管理不同链之间的资产转移，保证数据一致性和完整性。
-- **数据验证与0G DA层接口**：确保NFT交易数据的可用性和安全性，接口与0G DA层交互。
+Below is the technical framework design for this contract.
 
 ---
 
-### 2. **合约设计**
+### 1. **Cross-Chain NFT Contract Technology Framework**
 
-#### 2.1 **NFT锁定合约 (Locking Contract)**
+#### 1.1 **Main Functional Modules**
+- **NFT Locking Contract**: Used to lock NFTs on the source chain and generate signatures to ensure the legitimacy of user NFTs.
+- **Signature Verification Contract**: Used to verify the authenticity of signatures to ensure that NFT locking and transfer are initiated by legitimate users.
+- **Reminting Contract**: Remints NFTs on the target chain to ensure users can obtain new NFTs during cross-chain transfers.
+- **Cross-Chain Bridge Contract**: Used to manage asset transfers between different chains, ensuring data consistency and integrity.
+- **Data Validation and 0G DA Layer Interface**: Ensures data availability and security of NFT transactions, interacting with 0G DA layer.
 
-这个合约的作用是锁定用户在源链上的NFT，并生成签名信息。
+---
+
+### 2. **Contract Design**
+
+#### 2.1 **NFT Locking Contract (Locking Contract)**
+
+This contract is used to lock NFTs on the source chain and generate signature information.
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -196,16 +196,16 @@ contract LockNFT {
 }
 ```
 
-- **功能**：
-  - 用户调用`lockNFT`函数锁定NFT。
-  - 合约通过`_generateSignature`生成签名，用于跨链验证。
-  - 锁定NFT后，会触发`NFTLocked`事件，广播锁定信息。
+- **Functions**:
+  - Users call `lockNFT` function to lock NFTs.
+  - The contract generates signatures using `_generateSignature` for cross-chain verification.
+  - After locking, the `NFTLocked` event is emitted, broadcasting the lock information.
 
 ---
 
-#### 2.2 **签名验证合约 (Signature Verification Contract)**
+#### 2.2 **Signature Verification Contract (Signature Verification Contract)**
 
-此合约用于验证签名的有效性，以确保NFT交易操作的合法性。
+This contract is used to verify the validity of signatures to ensure the legitimacy of NFT transactions.
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -248,15 +248,15 @@ contract SignatureVerifier {
 }
 ```
 
-- **功能**：
-  - `verifySignature`验证用户签名的有效性，确保签名来自于NFT的合法所有者。
-  - 使用`ecrecover`来从签名中恢复出发送者的地址。
+- **Functions**:
+  - `verifySignature` verifies the validity of user signatures to ensure they are from legitimate NFT owners.
+  - `ecrecover` is used to recover the address from the signature.
 
 ---
 
-#### 2.3 **跨链桥接合约 (Cross-Chain Bridge Contract)**
+#### 2.3 **Cross-Chain Bridge Contract (Cross-Chain Bridge Contract)**
 
-该合约负责处理跨链NFT的转移，将锁定的信息传递到目标链，并在目标链上执行重铸操作。
+This contract handles NFT transfers between chains, passing lock information to the target chain and executing reminting operations on the target chain.
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -299,16 +299,16 @@ contract CrossChainBridge {
 }
 ```
 
-- **功能**：
-  - 接收来自源链的NFT桥接请求。
-  - 验证签名后，触发`NFTBridged`事件。
-  - 在目标链中执行重铸操作。
+- **Functions**:
+  - Receives NFT bridging requests from the source chain.
+  - Verifies signatures and triggers `NFTBridged` event upon successful verification.
+  - Executes reminting operations on the target chain.
 
 ---
 
-#### 2.4 **目标链重铸合约 (Minting Contract)**
+#### 2.4 **Target Chain Reminting Contract (Minting Contract)**
 
-在目标链上，重铸新的NFT，代表从源链跨链转移过来的资产。
+On the target chain, new NFTs are reminted, representing assets transferred from the source chain across the cross-chain bridge.
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -333,30 +333,30 @@ contract MintNFT {
 }
 ```
 
-- **功能**：
-  - 在目标链上为用户重铸NFT，并将其发送到目标地址。
+- **Functions**:
+  - Mints new NFTs on the target chain for users and sends them to the target address.
 
 ---
 
-### 3. **技术流程**
+### 3. **Technical Flow**
 
-1. **源链上锁定NFT**：
-   用户通过调用`LockNFT`合约，锁定NFT，并生成签名。该签名用于确保NFT在跨链过程中没有被篡改。
+1. **NFT Locking on Source Chain**:
+   Users lock NFTs on the source chain by calling `LockNFT` contract, generating signatures. These signatures are used to ensure the integrity of NFTs during cross-chain transfers.
    
-2. **验证签名**：
-   在跨链桥接合约中，使用`SignatureVerifier`合约验证签名的合法性。
+2. **Signature Verification**:
+   In the cross-chain bridge contract, `SignatureVerifier` contract is used to verify the legitimacy of signatures.
 
-3. **跨链桥接**：
-   `CrossChainBridge`合约会接收跨链请求并验证签名，确保操作合法。
+3. **Cross-Chain Bridging**:
+   `CrossChainBridge` contract receives cross-chain requests and verifies signatures, ensuring the legitimacy of the operation.
 
-4. **目标链重铸NFT**：
-   在目标链上，重铸合约会根据跨链桥接合约的请求，创建新的NFT，并将其发送到目标地址。
+4. **Target Chain Reminting**:
+   On the target chain, the reminting contract creates new NFTs based on the request from the cross-chain bridge contract and sends them to the target address.
 
 ---
 
-### 4. **总结**
+### 4. **Summary**
 
-以上技术框架为跨链NFT交易提供了完整的合约设计和实现思路，包括NFT的锁定、签名验证、跨链桥接以及目标链的重铸过程。通过0G DA层的数据可用性，整个过程可以更加高效、安全、无缝地进行。
+The above technical framework provides a complete contract design and implementation approach for cross-chain NFT trading, including NFT locking, signature verification, cross-chain bridging, and target chain reminting. Through data availability of 0G DA layer, the entire process can be more efficient, secure, and seamless.
 
 
 ### Key Features of the EVM Chain NFT Contract:
@@ -477,37 +477,37 @@ This implementation creates a decentralized infrastructure that enables efficien
 ---
 
 
-# Clippy团队给人型机器人注入灵魂
+# Clippy Team Gives Humanoid Robots Soul
 
-下面提供两个图示，分别展示了 Life++ 项目的整体工作流和系统架构设计，以便在 Aptos EverMove Hackerhouse 期间作为顶级开发团队高效协作并交付原型。
+Below are two diagrams, showing the overall workflow and system architecture design of Life++ project, to be used as top-level development teams' efficient collaboration and prototype delivery during Aptos EverMove Hackerhouse.
 
 ---
 
-### 1. 工作流程图
+### 1. Workflow Diagram
 
-该工作流图展示了项目从启动、环境搭建、合约开发、前后端集成，到测试优化、Demo 演示及社区互动的全流程：
+This workflow diagram shows the project's full lifecycle from start, environment setup, contract development, frontend integration, to testing optimization, demo presentation, and community interaction:
 
 ```mermaid
 flowchart TD
-    A[项目启动与团队组建]
-    B["环境配置与资源准备
-    (安装 Aptos CLI/SDK, 连接 Testnet)"]
-    C[原型设计与技术选型]
-    D["智能合约开发
+    A[Project Start and Team Formation]
+    B["Environment Setup and Resource Preparation
+    (Installing Aptos CLI/SDK, Connecting to Testnet)"]
+    C[Prototyping and Technology Selection]
+    D["Smart Contract Development
     (Robot NFT & Life++ Token)"]
-    E[安全性与抗量子措施集成]
-    F[合约部署至 Testnet & 功能测试]
-    G["前端 dApp 开发
-    (React, 钱包连接, 合约交互)"]
-    H["后端服务与 AI 接口对接
-    (数据上传、意识归集、模型调用)"]
-    I["跨链及隐私链初步对接
+    E[Security and Quantum-Resistant Measures Integration]
+    F[Contract Deployment to Testnet & Function Testing]
+    G["Frontend dApp Development
+    (React, Wallet Connection, Contract Interaction)"]
+    H["Backend Services and AI Interface Integration
+    (Data Upload, Consciousness Collection, Model Invocation)"]
+    I["Preliminary Integration with Cross-Chain and Privacy Chains
     (Solana & Quorum)"]
-    J[全流程功能测试与优化]
-    K[性能、安全审查及文档整理]
-    L[Demo 制作与演练]
-    M[社区互动与反馈收集]
-    N[项目提交与后续迭代规划]
+    J[Full-Process Function Testing and Optimization]
+    K[Performance, Security Review and Documentation]
+    L[Demo Preparation and Practice]
+    M[Community Interaction and Feedback Collection]
+    N[Project Submission and Subsequent Iteration Planning]
 
     A --> B
     B --> C
@@ -524,346 +524,346 @@ flowchart TD
     M --> N
 ```
 
-**说明：**  
-- **A~C 阶段**：主要完成项目启动、环境搭建及技术方案确定；  
-- **D~F 阶段**：围绕智能合约的开发、安全措施集成以及部署测试；  
-- **G~I 阶段**：构建前后端交互原型，完成 AI 模型接口及跨链对接；  
-- **J~K 阶段**：全流程测试及性能、安全优化；  
-- **L~N 阶段**：Demo 演示、社区互动及项目提交，形成后续迭代规划。
+**Notes:**  
+- **A~C Stages**: Mainly completed project start, environment setup, and technology solution determination;  
+- **D~F Stages**: Around smart contract development, security measures integration, and deployment testing;  
+- **G~I Stages**: Building frontend and backend interaction prototypes, completing AI model interface and cross-chain integration;  
+- **J~K Stages**: Full-process testing and performance, security optimization;  
+- **L~N Stages**: Demo presentation, community interaction, and project submission, forming subsequent iteration planning.
 
 ---
 
-### 2. 系统架构图
+### 2. System Architecture Diagram
 
-该架构图展示了 Life++ 系统各个模块之间的交互和数据流，包括前端 dApp、后端服务、智能合约、AI 模型接口、区块链网络及跨链与隐私链集成等关键组件。
+This architecture diagram shows the interaction and data flow between different modules of Life++ system, including frontend dApp, backend services, smart contracts, AI model interfaces, blockchain networks, and cross-chain and privacy chains integration.
 
 ```mermaid
 flowchart TD
-    subgraph 前端层
-        FE["前端 dApp
-        (React, 钱包连接)"]
+    subgraph Frontend Layer
+        FE["Frontend dApp
+        (React, Wallet Connection)"]
     end
 
-    subgraph 后端层
-        BE["后端服务
-        (数据处理, API 网关)"]
-        AI["AI 模型接口
-        (Deepseek, 联邦学习)"]
+    subgraph Backend Layer
+        BE["Backend Services
+        (Data Processing, API Gateway)"]
+        AI["AI Model Interface
+        (Deepseek, Federated Learning)"]
     end
 
-    subgraph 智能合约层
-        SC["智能合约
+    subgraph Smart Contract Layer
+        SC["Smart Contracts
         (Robot NFT & Token)"]
     end
 
-    subgraph 区块链层
-        AP["Aptos 区块链
-        (高吞吐, 低延迟)"]
+    subgraph Blockchain Layer
+        AP["Aptos Blockchain
+        (High Throughput, Low Latency)"]
     end
 
-    subgraph 跨链及隐私层
-        SOL["Solana 链
-        (Token 经济)"]
-        QP["Quorum 隐私链
-        (数据存储)"]
+    subgraph Cross-Chain and Privacy Layer
+        SOL["Solana Chain
+        (Token Economy)"]
+        QP["Quorum Privacy Chain
+        (Data Storage)"]
     end
 
-    FE -->|调用合约接口| SC
-    BE -->|调用智能合约| SC
-    BE -->|数据交互| AI
-    AI -->|生成分身、归集意识| BE
-    SC -->|上链存证| AP
-    SOL -.->|跨链交互| SC
-    QP -.->|存储 NFT 元数据| SC
+    FE -->|Calling Contract Interface| SC
+    BE -->|Calling Smart Contracts| SC
+    BE -->|Data Interaction| AI
+    AI -->|Generating Avatar, Collecting Consciousness| BE
+    SC -->|Chain Storage Evidence| AP
+    SOL -.->|Cross-Chain Interaction| SC
+    QP -.->|Storing NFT Metadata| SC
 
     FE --- BE
 ```
 
-**说明：**  
-- **前端层**：基于 React 的 dApp 提供友好用户交互，包括钱包（如 Petra Wallet）连接，实现 NFT 展示和 Token 交易；  
-- **后端层**：负责处理用户数据上传、意识归集以及与 AI 模型的接口对接，形成个性化 AI 分身；  
-- **智能合约层**：利用 Move 语言开发 Robot NFT 和 Life++ Token 合约，支持资产生成、交易及治理；  
-- **区块链层**：依托 Aptos 高性能区块链保障系统高吞吐、低延迟运行；  
-- **跨链及隐私层**：初步对接 Solana 实现 Token 经济互通，同时通过 Quorum 隐私链存储 NFT 元数据，保证数据隐私和安全。
+**Notes:**  
+- **Frontend Layer**: Based on React, dApp provides user-friendly interaction, including wallet (e.g., Petra Wallet) connection, NFT display, and Token transaction;  
+- **Backend Layer**: Handles user data upload, consciousness collection, and interface integration with AI models, forming personalized AI avatars;  
+- **Smart Contract Layer**: Develops smart contracts in Move language for Robot NFT and Life++ Token, supporting asset generation, trading, and governance;  
+- **Blockchain Layer**: Based on Aptos high-performance blockchain system, ensuring high throughput and low latency operation;  
+- **Cross-Chain and Privacy Layer**: Preliminary integration with Solana for Token economy interoperability, and through Quorum privacy chain for storing NFT metadata, ensuring data privacy and security.
 
 ---
 
-这两个图示清晰地描绘了 Life++ 项目在 Aptos EverMove Hackerhouse 期间的工作流和技术架构，既满足前沿应用场景需求，也确保了系统的安全性、可扩展性和跨链互操作能力。
+These diagrams clearly depict the workflow and architecture of Life++ project during Aptos EverMove Hackerhouse, meeting the needs of cutting-edge application scenarios while ensuring the security, scalability, and cross-chain interoperability of the system.
 
-下面是一份面向 Aptos EverMove Hackerhouse 2025 的 Life++ 实现路线图，整合了顶级产品构想与全栈合约开发经验，旨在于 5 天内交付一个涵盖 AI 代理、机器人 NFT（RWA）与去中心化 Token 经济的原型系统。
-
----
-
-## 总体目标
-
-- **核心理念**：基于 Life++ 白皮书中提出的"意识上载"与"机器人国际商业企业（RIBM）"构想，打造一个去中心化的 AI 代理生态，利用 Aptos 高吞吐、低延迟的特性支持 AI 计算、资产生成与交易。
-- **重点领域**：覆盖 AI 代理（Agent Store）、机器人 NFT（RWA）生成、Token 经济（DeFi）、前后端集成及跨链互通（如 Solana 与 Aptos）。
-- **最终目标**：提交一套经过完整测试的原型系统，该系统能够实现用户数字意识上载、生成个性化 AI 分身、创建并交易 Robot NFT 以及参与去中心化治理。
+Below is a detailed implementation roadmap for Life++ project for Aptos EverMove Hackerhouse 2025, integrating top-level product ideas with full-stack contract development experience, aiming to deliver a prototype system covering AI agent, robot NFT (RWA), and decentralized Token economy within 5 days.
 
 ---
 
-## 5 天交付路线图
+## Overall Goal
 
-### **Day 1：项目启动与环境搭建**
-
-- **团队组建与任务分配**
-  - 确定全栈合约、前端、后端及 AI 算法模块负责人
-  - 明确任务划分和沟通机制
-- **环境配置与资源准备**
-  - 搭建 Aptos 开发环境：安装 Aptos CLI、SDK，并连接到 Testnet
-  - 获取并熟读 [Aptos Developer Documentation](https://aptos.dev/)（重点关注 Move 语言与智能合约开发指南）
-  - 建立 Git 仓库与 CI/CD 流程
-- **原型设计与技术选型**
-  - 确定 Life++ 的核心模块：智能合约（Robot NFT & Token）、前端 dApp、AI 模型对接接口
-  - 制定跨链（Solana 与 Aptos）集成初步方案
-
-### **Day 2：智能合约开发**
-
-- **Move 合约编写**
-  - 开发 Robot NFT 合约：实现 NFT 的铸造、交易、资产确权等功能，确保符合 Aptos RWA 域需求
-  - 编写 Life++ Token 合约：支持高频交易、治理机制及跨链交互（初步兼容 Solana Token）
-- **安全性与抗量子设计**
-  - 集成 Lattice-based 签名、MPC 与 HE 方案，实现合约层的数据安全与隐私保护
-- **部署测试**
-  - 利用 Aptos CLI 部署至 Testnet，进行基础功能测试与合约间交互验证
-
-### **Day 3：前后端集成与原型搭建**
-
-- **前端开发**
-  - 利用 React 框架开发用户友好的 dApp 界面，涵盖钱包连接（如 Petra Wallet）、NFT 展示与 Token 交易界面
-  - 接入 Aptos SDK 实现与智能合约的实时交互
-- **后端与 AI 接口对接**
-  - 搭建后端服务，处理用户数据上传、意识数据归集与 AI 模型调用
-  - 集成 Life++ AI 模型（如 Deepseek 与联邦学习模块），实现分身生成与个性化定制
-- **数据链路与跨链对接**
-  - 初步对接 Quorum 隐私链，确保数据存储及 Robot NFT 元数据管理
-  - 设计跨链 Token 流程，为后续的稳定币与资产互换预留扩展空间
-
-### **Day 4：系统测试、优化与安全审查**
-
-- **全流程功能测试**
-  - 模拟用户场景：意识上载、AI 分身生成、NFT 铸造、Token 交易与治理操作
-  - 进行边缘场景与异常状态测试，确保系统鲁棒性
-- **性能与安全优化**
-  - 利用 Aptos 高吞吐能力测试合约响应速度与交易确认时长
-  - 检查合约与前后端数据交互的安全性，结合零知识证明（ZKP）等技术进行隐私验证
-- **文档整理**
-  - 撰写测试报告与技术文档，为后续社区反馈与迭代做准备
-
-### **Day 5：演示准备与社区互动**
-
-- **Demo 整理与演练**
-  - 制作 Demo 视频及现场演示文稿，突出 Life++ 与 Aptos 融合的创新亮点（如意识上载、Robot NFT 交易与 AI 分身定制）
-  - 模拟 Demo 场景，确保每个环节流畅演示
-- **社区互动与反馈收集**
-  - 参与 Aptos Discord 及现场问答环节，收集来自导师、投资机构与开发者的反馈
-  - 提出后续迭代计划，并讨论跨链扩展、稳定币集成与数据隐私进一步优化的可能性
-- **项目提交**
-  - 整理项目代码、文档与 Demo 材料，按要求提交评审
-  - 与 Aptos EverMove 主办方沟通项目亮点及未来发展规划
+- **Core Concept**: Based on the "Uploading Consciousness" and "International Business Enterprise (RIBM)" ideas proposed in Life++ white paper, build a decentralized AI agent ecosystem, utilizing Aptos' high throughput and low latency characteristics to support AI computation, asset generation, and trading.
+- **Key Areas**: Covering AI agent (Agent Store), robot NFT (RWA) generation, Token economy (DeFi), frontend integration, and cross-chain interoperability (e.g., Solana and Aptos).
+- **Final Goal**: Submit a fully tested prototype system that can enable users to upload digital consciousness, generate personalized AI avatars, create and trade Robot NFTs, and participate in decentralized governance.
 
 ---
 
-## 技术与伦理亮点
+## 5-Day Delivery Roadmap
 
-- **高性能区块链支持**：充分利用 Aptos 高吞吐、低延迟特性，为 AI 模型计算与 NFT 交易提供坚实基础。
-- **跨链互操作**：初步探索 Solana 与 Aptos 之间的 Token 流通，保障 Life++ Token 经济的稳定性与扩展性。
-- **抗量子安全设计**：引入 Lattice-based 签名、MPC、HE 等前沿密码学技术，确保系统在未来量子计算环境下依然安全。
-- **伦理与社会责任**：系统嵌入《论语》仁爱、道德经无为等传统哲学及 UN SDG 框架，推动机器人与 AI 分身在技术进步同时，实现社会责任与可持续发展。
+### **Day 1: Project Start and Environment Setup**
 
----
+- **Team Formation and Task Allocation**
+  - Determine full-stack contract, frontend, backend, and AI algorithm module responsible persons
+  - Clarify task division and communication mechanisms
+- **Environment Setup and Resource Preparation**
+  - Set up Aptos development environment: install Aptos CLI, SDK, and connect to Testnet
+  - Obtain and read [Aptos Developer Documentation](https://aptos.dev/) (focus on Move language and smart contract development guide)
+  - Establish Git repository and CI/CD process
+- **Prototyping and Technology Selection**
+  - Determine core modules of Life++: smart contracts (Robot NFT & Token), frontend dApp, AI model interface
+  - Develop preliminary cross-chain integration plan (Solana and Aptos)
 
-通过这份路线图，团队在 Aptos EverMove Hackerhouse 期间能够迅速搭建并演示 Life++ 的核心功能，既展示前沿技术实力，又响应了 Aptos 生态系统对 AI、RWA 与 DeFi 应用的创新需求。
+### **Day 2: Smart Contract Development**
 
-下面是一份详细的分工方案，明确了产品、全栈和 AI 算法三大团队的职责与协作方式，确保项目在 Aptos EverMove Hackerhouse 期间高效推进、分工明确。
+- **Move Contract Writing**
+  - Develop Robot NFT contract: implement NFT minting, trading, asset rights functions, ensuring compliance with Aptos RWA domain requirements
+  - Write Life++ Token contract: support high-frequency trading, governance mechanisms, and cross-chain interaction (preliminary compatibility with Solana Token)
+- **Security and Quantum-Resistant Design**
+  - Integrate Lattice-based signature, MPC, and HE schemes to ensure data security and privacy on the contract layer
+- **Deployment Testing**
+  - Deploy to Testnet using Aptos CLI, perform basic functionality testing and interaction verification between contracts
 
----
+### **Day 3: Frontend Integration and Prototyping**
 
-## 1. 产品团队
+- **Frontend Development**
+  - Develop user-friendly dApp interface using React framework, covering wallet connection (e.g., Petra Wallet), NFT display, and Token transaction interface
+  - Integrate Aptos SDK for real-time interaction with smart contracts
+- **Backend and AI Interface Integration**
+  - Set up backend services to handle user data upload, consciousness collection, and AI model invocation
+  - Integrate Life++ AI model (e.g., Deepseek and federated learning modules) for avatar generation and personalized customization
+- **Data Chain and Cross-Chain Integration**
+  - Preliminary integration with Quorum privacy chain for data storage and Robot NFT metadata management
+  - Design cross-chain Token flow for stablecoin and asset swap extension
 
-**主要职责：**
-- **产品规划与需求定义**  
-  - 分析市场与用户痛点，明确 Life++ 的核心价值（意识上载、AI 分身、Robot NFT 等）。
-  - 制定产品路线图和功能模块，细化业务场景和用户旅程。
-- **交互与用户体验设计**  
-  - 负责全流程用户体验设计，从初次接触、数据上传到 NFT 资产管理，确保界面直观、易用。
-  - 制定原型、线框图和交互规范，推动 UI/UX 的统一设计。
-- **项目管理与沟通协调**  
-  - 负责跨团队需求对接，及时传达产品反馈，跟进迭代计划。
-  - 安排定期评审会议，确保各团队协同推进产品落地。
+### **Day 4: System Testing, Optimization, and Security Review**
 
----
+- **Full-Process Function Testing**
+  - Simulate user scenarios: uploading consciousness, AI avatar generation, NFT minting, Token transaction, and governance operations
+  - Conduct edge case and exception state testing to ensure system robustness
+- **Performance and Security Optimization**
+  - Use Aptos' high throughput capabilities to test contract response speed and transaction confirmation duration
+  - Check security of data interaction between frontend and backend, combined with zero-knowledge proof (ZKP) for privacy verification
+- **Documentation**
+  - Write test reports and technical documentation for community feedback and subsequent iteration preparation
 
-## 2. 全栈开发团队
+### **Day 5: Demo Preparation and Community Interaction**
 
-**主要职责：**
-- **前端开发**  
-  - 构建基于 React 的用户界面，确保钱包连接、数据展示、NFT 交易、Token 操作等功能流畅。
-  - 与后端 API、智能合约接口进行无缝对接，确保数据实时交互与错误处理。
-- **后端开发**  
-  - 搭建数据归集、用户管理、跨链交互等服务，提供稳定、高效的 API 接口。
-  - 负责 AI 分身生成、意识数据处理等核心逻辑的业务实现，与 AI 算法团队紧密协作。
-- **区块链与智能合约开发**  
-  - 编写、部署和调试基于 Aptos 的 Move 智能合约，包括 Robot NFT、Token 合约等。
-  - 设计前后端与区块链层的数据交互接口，确保链上数据的准确存证和跨链对接（如与 Solana、Quorum 隐私链）。
-- **DevOps 与测试**  
-  - 负责 CI/CD 流程搭建、自动化测试与性能监控，保障各环节在开发、测试与生产环境中的稳定运行。
-
----
-
-## 3. AI 算法团队
-
-**主要职责：**
-- **AI 模型开发与训练**  
-  - 设计并实现意识提炼与分身生成的算法（如 Deepseek、联邦学习模块），处理多模态数据，实现个性化 AI 分身定制。
-  - 优化 AI 算法的效率，确保模型在处理大量数据时具备高准确性和低延迟特性。
-- **数据预处理与安全**  
-  - 构建数据预处理流水线，负责数据清洗、特征提取与加密，保障数据隐私和上链安全。
-  - 集成抗量子加密（Lattice-based 签名、MPC、HE）技术，确保 AI 算法在高敏感场景下的数据保护。
-- **模型接口与后端集成**  
-  - 开发 AI 模型服务接口，确保后端能够调用模型进行实时分身生成和数据归集处理。
-  - 配合全栈团队完成接口调试，确保前端展示与交互能够实时反馈 AI 算法处理结果。
-- **持续迭代与算法优化**  
-  - 基于用户反馈和数据监控，对 AI 模型进行持续迭代与优化，提升模型适应性和个性化定制效果。
-  - 负责模型的安全性、隐私保护以及与区块链数据的对接，确保算法运行在可信环境中。
+- **Demo Preparation and Practice**
+  - Prepare Demo video and live presentation slides, highlighting innovative highlights of Life++ and Aptos integration (e.g., uploading consciousness, Robot NFT trading, AI avatar customization)
+  - Simulate Demo scenarios to ensure smooth demonstration of each环节
+- **Community Interaction and Feedback Collection**
+  - Participate in Aptos Discord and on-site Q&A sessions to collect feedback from mentors, investors, and developers
+  - Propose subsequent iteration plans and discuss cross-chain extension, stablecoin integration, and further optimization of data privacy
+- **Project Submission**
+  - Organize project code, documentation, and Demo materials, submit for review as per requirements
+  - Communicate with Aptos EverMove organizers about project highlights and future development plans
 
 ---
 
-## 协作与沟通
+## Technical and Ethical Highlights
 
-- **跨团队对接**  
-  - 产品团队负责梳理需求后，将详细需求文档传递给全栈和 AI 算法团队。
-  - 全栈团队与 AI 算法团队定期举行技术对接会议，确保接口、数据格式和调用逻辑保持一致。
-- **项目管理平台**  
-  - 利用 Jira 或 Trello 等工具进行任务分解与进度跟踪，确保每个模块按计划推进。
-- **文档与反馈机制**  
-  - 每个团队均需撰写详细的技术和用户文档，便于各环节信息共享和问题追踪。
-  - 定期召开跨团队会议，及时沟通遇到的技术难题和用户反馈，共同推动产品迭代。
+- **High-Performance Blockchain Support**: Leverage Aptos' high throughput and low latency characteristics to provide solid foundation for AI model computation and NFT trading.
+- **Cross-Chain Interoperability**: Preliminary exploration of Token circulation between Solana and Aptos, ensuring stability and expansibility of Life++ Token economy.
+- **Quantum-Resistant Security Design**: Introduce cutting-edge cryptographic technologies (Lattice-based signature, MPC, HE) to ensure system security in future quantum computing environments.
+- **Ethics and Social Responsibility**: System incorporates Confucianism's benevolence, Taoism's non-action, and UN SDG framework to promote social responsibility and sustainable development alongside technological progress.
 
 ---
 
-这种分工模式不仅能确保 Life++ 的前沿技术得以充分发挥，也能让产品和用户体验落地，为 Aptos EverMove Hackerhouse 项目交付提供有力支持。
+Through this roadmap, the team can quickly set up and demonstrate core functionalities of Life++ during Aptos EverMove Hackerhouse, showcasing cutting-edge technological capabilities while responding to the innovation needs of Aptos ecosystem for AI, RWA, and DeFi applications.
 
-
-下面提供一份详细的技术文档和用户文档，覆盖项目架构、开发流程、部署步骤以及用户操作指南，确保开发人员和最终用户均能快速上手并深入理解 Life++ 项目的全貌。
-
----
-
-# Life++ 详细技术与用户文档
-
-## 目录
-
-1. [技术文档](#技术文档)
-   - [1.1 系统架构概览](#系统架构概览)
-   - [1.2 技术栈与模块划分](#技术栈与模块划分)
-   - [1.3 数据流与交互流程](#数据流与交互流程)
-   - [1.4 开发与部署指引](#开发与部署指引)
-   - [1.5 安全与隐私策略](#安全与隐私策略)
-   - [1.6 常见问题与调试指南](#常见问题与调试指南)
-2. [用户文档](#用户文档)
-   - [2.1 产品概述与核心功能](#产品概述与核心功能)
-   - [2.2 注册与身份认证](#注册与身份认证)
-   - [2.3 数据归集与意识上传](#数据归集与意识上传)
-   - [2.4 AI 分身生成与定制](#AI-分身生成与定制)
-   - [2.5 Robot NFT 生成与管理](#Robot-NFT-生成与管理)
-   - [2.6 Token 经济与治理参与](#Token-经济与治理参与)
-   - [2.7 用户常见问题](#用户常见问题)
+Below is a detailed division of labor plan, clarifying the responsibilities and collaboration modes of product, full-stack, and AI algorithm teams, ensuring efficient project progress and clear division of tasks during Aptos EverMove Hackerhouse.
 
 ---
 
-## 技术文档
+## 1. Product Team
 
-### 1.1 系统架构概览
+**Main Responsibilities**:
+- **Product Planning and Requirements Definition**  
+  - Analyze market and user pain points to clarify core value proposition of Life++ (uploading consciousness, AI avatar, Robot NFT, etc.).
+  - Develop product roadmap and functional modules,细化业务场景和用户旅程。
+- **Interaction and User Experience Design**  
+  - Responsible for end-to-end user experience design, from initial contact, data upload, to NFT asset management, ensuring intuitive and user-friendly interface.
+  - Develop wireframes and interaction specifications to drive unified UI/UX design.
+- **Project Management and Coordination**  
+  - Responsible for cross-team needs alignment, timely communication of product feedback, and follow-up on iteration plans.
+  - Arrange regular review meetings to ensure collaborative product delivery across teams.
 
-Life++ 项目由以下层级构成，每一层均可独立扩展，同时通过明确接口实现无缝交互：
+---
 
-- **前端层**：基于 React 构建的 dApp，提供用户注册、数据上传、分身定制、NFT 展示及 Token 交易界面。
-- **后端层**：负责数据归集、用户管理、API 网关及与 AI 模型交互，支撑前端功能并实现跨链数据传输。
-- **区块链层**：在 Aptos 上部署的 Move 智能合约，包括 Robot NFT 合约与 Life++ Token 合约，提供链上存证、交易及治理功能。
-- **跨链与隐私层**：通过对接 Solana 和 Quorum 隐私链，实现 Token 跨链交互和 NFT 元数据加密存储。
-- **AI 模型层**：基于 Deepseek、联邦学习等技术，实现多模态数据处理与个性化 AI 分身生成，同时集成抗量子加密技术确保数据安全。
+## 2. Full-Stack Development Team
 
-### 1.2 技术栈与模块划分
+**Main Responsibilities**:
+- **Frontend Development**  
+  - Build user interface based on React, ensuring smooth wallet connection, data display, NFT trading, and Token operations.
+  - Establish seamless API and smart contract interface integration, ensuring real-time data interaction and error handling.
+- **Backend Development**  
+  - Set up data aggregation, user management, cross-chain interaction services, providing stable and efficient API interfaces.
+  - Handle core logic of AI avatar generation, consciousness data processing, and collaborate closely with AI algorithm team.
+- **Blockchain and Smart Contract Development**  
+  - Develop and deploy Move smart contracts based on Aptos, including Robot NFT and Token contracts.
+  - Design data interaction interfaces between frontend and blockchain layer, ensuring accurate notarization and cross-chain integration (e.g., with Solana and Quorum privacy chains).
+- **DevOps and Testing**  
+  - Set up CI/CD process, automated testing, and performance monitoring to ensure stable operation across development, testing, and production environments.
 
-| 模块               | 技术与工具                           | 主要功能描述                                     |
-|--------------------|--------------------------------------|--------------------------------------------------|
-| 前端               | React, JavaScript/TypeScript, Aptos SDK, 钱包插件（Petra Wallet） | 用户交互、数据展示、合约调用、NFT 和 Token 操作    |
-| 后端               | Node.js, Express/Koa, RESTful API, WebSocket | 数据归集、业务逻辑处理、跨链交互 API                |
-| 智能合约           | Move 语言, Aptos CLI                  | Robot NFT 铸造、Token 发放、治理与交易              |
-| 区块链网络         | Aptos Testnet/Mainnet, Solana         | 高吞吐、低延迟交易；跨链 Token 流转                  |
-| 隐私链             | Quorum, IPFS, Walrus                  | 数据加密存储、NFT 元数据记录                         |
-| AI 模型            | Python, TensorFlow/PyTorch, 联邦学习框架 | 多模态数据处理、意识提炼、AI 分身生成                |
-| 安全              | Lattice-based 签名、MPC、HE, ZKP       | 数据传输加密、抗量子加密、智能合约安全审查            |
+---
 
-### 1.3 数据流与交互流程
+## 3. AI Algorithm Team
 
-1. **用户注册与身份认证**  
-   - 用户通过前端连接钱包完成身份认证，生成唯一数字身份，并保存于本地或链上记录。
+**Main Responsibilities**:
+- **AI Model Development and Training**  
+  - Design and implement algorithms for consciousness extraction and avatar generation (e.g., Deepseek, federated learning modules), processing multimodal data, and achieving personalized AI avatar customization.
+  - Optimize AI algorithm efficiency to ensure high accuracy and low latency when processing large amounts of data.
+- **Data Preprocessing and Security**  
+  - Build data preprocessing pipeline to handle data cleaning, feature extraction, and encryption, ensuring data privacy and on-chain security.
+  - Integrate quantum-resistant encryption technologies (Lattice-based signature, MPC, HE) to protect data in high-sensitivity scenarios.
+- **Model Interface and Backend Integration**  
+  - Develop AI model service interfaces to ensure backend can call models for real-time avatar generation and data aggregation.
+  - Collaborate with full-stack team to complete interface debugging, ensuring frontend display and interaction can reflect AI algorithm processing results in real-time.
+- **Continuous Iteration and Algorithm Optimization**  
+  - Based on user feedback and data monitoring, continuously iterate and optimize AI models to improve adaptability and personalized customization effect.
+  - Ensure model security, privacy protection, and data integration with blockchain, ensuring algorithm operation in a trusted environment.
 
-2. **数据归集与上传**  
-   - 前端引导用户授权接入社交、设备数据等，后端对数据进行预处理（清洗、特征提取、加密），利用隐私链存储后生成数据摘要。
+---
 
-3. **AI 分身生成**  
-   - 处理后的数据通过 API 传递给 AI 模型，模型进行意识提炼并生成 AI 分身预览，返回前端展示。
-   - 用户可对分身进行定制（外观、语音、互动模式），并确认生成最终分身。
+## Collaboration and Communication
 
-4. **Robot NFT 生成**  
-   - 用户确认分身后，后端自动生成唯一 Robot NFT，调用智能合约上链存证，并记录资产确权信息。
+- **Cross-Team Alignment**  
+  - Product team communicates detailed requirements to full-stack and AI algorithm teams.
+  - Regular technical alignment meetings between full-stack and AI algorithm teams to ensure consistent interface, data format, and invocation logic.
+- **Project Management Platform**  
+  - Use tools like Jira or Trello for task decomposition and progress tracking to ensure each module progresses according to plan.
+- **Documentation and Feedback Mechanism**  
+  - Each team must write detailed technical and user documentation to facilitate information sharing and problem tracing across different stages.
+  - Regular cross-team meetings to discuss technical challenges and user feedback, collectively driving product iteration.
 
-5. **Token 经济与治理**  
-   - 交易、支付和治理操作均通过 Life++ Token 实现。用户通过前端查看资产、参与治理投票，所有操作实时同步至区块链。
+---
 
-6. **跨链交互**  
-   - 在需要跨链时，后端调用跨链 API，将 Token 在 Aptos 与 Solana 间流转，同时确保 NFT 元数据存储于 Quorum 隐私链中。
+This division of labor ensures that the cutting-edge technology of Life++ can be fully utilized, while also ensuring product usability and user experience, providing strong support for project delivery during Aptos EverMove Hackerhouse.
 
-### 1.4 开发与部署指引
 
-#### 环境搭建
+Below is a detailed technical documentation and user documentation, covering project architecture, development process, deployment steps, and user operation guide, ensuring that both development teams and end users can quickly get up to speed and deeply understand the full scope of Life++ project.
 
-- **本地开发环境**
-  - 安装 Node.js、Git、VS Code；
-  - 配置 Aptos CLI 和 Aptos SDK，确保连接到 Testnet；
-  - 准备 Python 环境（建议 Python 3.8+）和相关 AI 模型库。
+---
 
-- **代码仓库**
-  - 前端代码位于 `/frontend`，后端代码位于 `/backend`，智能合约代码位于 `/contracts`；
-  - 建立 CI/CD 流程，利用 GitLab CI 或 GitHub Actions 进行自动化构建与测试。
+# Life++ Detailed Technical and User Documentation
 
-#### 编译与部署智能合约
+## Table of Contents
 
-1. 在 `/contracts` 目录中编写 Move 合约。
-2. 执行编译命令：
+1. [Technical Documentation](#Technical-Documentation)
+   - [1.1 System Architecture Overview](#System-Architecture-Overview)
+   - [1.2 Technology Stack and Module Division](#Technology-Stack-and-Module-Division)
+   - [1.3 Data Flow and Interaction Flow](#Data-Flow-and-Interaction-Flow)
+   - [1.4 Development and Deployment Guidance](#Development-and-Deployment-Guidance)
+   - [1.5 Security and Privacy Strategy](#Security-and-Privacy-Strategy)
+   - [1.6 Common Issues and Debugging Guide](#Common-Issues-and-Debugging-Guide)
+2. [User Documentation](#User-Documentation)
+   - [2.1 Product Overview and Core Functions](#Product-Overview-and-Core-Functions)
+   - [2.2 Registration and Identity Authentication](#Registration-and-Identity-Authentication)
+   - [2.3 Data Aggregation and Consciousness Upload](#Data-Aggregation-and-Consciousness-Upload)
+   - [2.4 AI Avatar Generation and Customization](#AI-Avatar-Generation-and-Customization)
+   - [2.5 Robot NFT Generation and Management](#Robot-NFT-Generation-and-Management)
+   - [2.6 Token Economy and Governance Participation](#Token-Economy-and-Governance-Participation)
+   - [2.7 User Common Issues](#User-Common-Issues)
+
+---
+
+## Technical Documentation
+
+### 1.1 System Architecture Overview
+
+Life++ project consists of the following layers, each of which can be independently extended, while seamless interaction is achieved through clear interfaces:
+
+- **Frontend Layer**: Based on React, dApp provides user registration, data upload, avatar customization, NFT display, and Token transaction interfaces.
+- **Backend Layer**: Handles data aggregation, user management, API gateway, and interaction with AI models to support frontend functionalities and cross-chain data transmission.
+- **Blockchain Layer**: Move smart contracts deployed on Aptos, including Robot NFT and Life++ Token contracts, providing chain notarization, trading, and governance functions.
+- **Cross-Chain and Privacy Layer**: Through integration with Solana and Quorum privacy chains, Token cross-chain interaction and NFT metadata encryption are enabled.
+- **AI Model Layer**: Based on technologies like Deepseek and federated learning, multimodal data processing and personalized AI avatar generation are achieved, while quantum-resistant encryption technology ensures data security.
+
+### 1.2 Technology Stack and Module Division
+
+| Module               | Technology and Tools                           | Main Functional Description                                     |
+|--------------------|----------------------------------------------|--------------------------------------------------|
+| Frontend           | React, JavaScript/TypeScript, Aptos SDK, Wallet Plugin (Petra Wallet) | User interaction, data display, contract invocation, NFT and Token operations    |
+| Backend            | Node.js, Express/Koa, RESTful API, WebSocket | Data aggregation, business logic processing, cross-chain API                |
+| Smart Contract     | Move language, Aptos CLI                  | Robot NFT minting, Token issuance, governance, and trading              |
+| Blockchain Network | Aptos Testnet/Mainnet, Solana         | High throughput, low latency transactions; cross-chain Token circulation                  |
+| Privacy Chain      | Quorum, IPFS, Walrus                  | Data encryption storage, NFT metadata recording                         |
+| AI Model           | Python, TensorFlow/PyTorch, federated learning framework | Multimodal data processing, consciousness extraction, AI avatar generation                |
+| Security          | Lattice-based signature, MPC, HE, ZKP       | Data transmission encryption, quantum-resistant encryption, smart contract security review            |
+
+### 1.3 Data Flow and Interaction Flow
+
+1. **User Registration and Identity Authentication**  
+   - Users complete identity authentication through wallet connection, generating a unique digital identity, and saving it locally or on the blockchain.
+
+2. **Data Aggregation and Upload**  
+   - Frontend guides users to authorize access to social, device data, etc., backend preprocesses data (cleaning, feature extraction, encryption), and uses privacy chain to store data summary.
+
+3. **AI Avatar Generation**  
+   - Processed data is passed to AI models through API, models perform consciousness extraction and generate AI avatar preview, which is returned to frontend for display.
+   - Users can customize their avatars (appearance, voice, interaction mode), and confirm the generation of final avatars.
+
+4. **Robot NFT Generation**  
+   - After confirming AI avatar, backend automatically generates a unique Robot NFT, smart contract on-chain notarization, and records asset rights information.
+
+5. **Token Economy and Governance**  
+   - All transactions, payments, and governance operations are conducted through Life++ Token. Users view assets through frontend, participate in governance voting, and all operations are synchronized to the blockchain in real-time.
+
+6. **Cross-Chain Interaction**  
+   - When cross-chain interaction is needed, backend calls cross-chain API to transfer Tokens between Aptos and Solana, ensuring NFT metadata is stored in Quorum privacy chain.
+
+### 1.4 Development and Deployment Guidance
+
+#### Environment Setup
+
+- **Local Development Environment**
+  - Install Node.js, Git, VS Code;
+  - Configure Aptos CLI and Aptos SDK, ensuring connection to Testnet;
+  - Prepare Python environment (recommended Python 3.8+) and related AI model libraries.
+
+- **Code Repository**
+  - Frontend code located in `/frontend`, backend code in `/backend`, smart contract code in `/contracts`;
+  - Establish CI/CD process using GitLab CI or GitHub Actions for automated build and testing.
+
+#### Compile and Deploy Smart Contracts
+
+1. Write Move contracts in `/contracts` directory.
+2. Execute compilation command:
    ```bash
    aptos move compile --package-dir .
    ```
-3. 部署合约：
+3. Deploy contracts:
    ```bash
    aptos move publish --package-dir . --profile testnet
    ```
-4. 记录合约地址，并在前后端配置文件中更新对应调用地址。
+4. Record contract address and update corresponding invocation addresses in frontend and backend configuration files.
 
-#### 前后端启动
+#### Frontend and Backend Startup
 
-- **前端启动**
+- **Frontend Startup**
   ```bash
   cd frontend
   npm install
   npm run start
   ```
-  - 浏览器访问 `http://localhost:3000` 进行调试。
+  - Access through browser at `http://localhost:3000` for debugging.
 
-- **后端启动**
+- **Backend Startup**
   ```bash
   cd backend
   npm install
   npm run start
   ```
-  - 后端服务日志监控 API 调用、AI 接口及跨链交互状态。
+  - Backend service logs monitor API calls, AI interface, and cross-chain interaction status.
 
-#### AI 模型集成
+#### AI Model Integration
 
-- 编写 AI 模型接口（基于 Flask 或 FastAPI），对外提供意识提炼与分身生成服务。
-- 接口示例（Python Flask）：
+- Write AI model interface (based on Flask or FastAPI), providing services for consciousness extraction and avatar generation.
+- Interface example (Python Flask):
   ```python
   from flask import Flask, request, jsonify
   app = Flask(__name__)
@@ -871,387 +871,420 @@ Life++ 项目由以下层级构成，每一层均可独立扩展，同时通过�
   @app.route('/generate_avatar', methods=['POST'])
   def generate_avatar():
       data = request.get_json()
-      # 调用 AI 模型处理数据，生成分身
+      # Call AI model to process data, generating avatar
       avatar = process_data_generate_avatar(data)
       return jsonify({'avatar': avatar})
 
   if __name__ == '__main__':
       app.run(port=5000)
   ```
-- 前端通过 REST API 调用该接口，获取模型返回结果。
+- Frontend accesses this interface through REST API, obtaining model return results.
 
-### 1.5 安全与隐私策略
+### 1.5 Security and Privacy Strategy
 
-- **数据传输**：采用 TLS 加密，所有 API 调用和数据传输均在加密通道内完成。
-- **数据存储**：利用隐私链（Quorum）存储敏感数据，确保用户数据不可篡改、不可泄露。
-- **加密措施**：在 AI 数据处理、NFT 元数据存储和 Token 交易中均集成抗量子加密技术（如 Lattice-based 签名、MPC、HE），并采用零知识证明（ZKP）验证数据真实性。
-- **智能合约安全**：部署前通过静态代码分析工具（如 Move Prover）及第三方安全审查，确保合约无漏洞。
+- **Data Transmission**: Use TLS encryption for all API calls and data transmission.
+- **Data Storage**: Use privacy chain (Quorum) for storing sensitive data to ensure user data immutability and non-leakage.
+- **Encryption Measures**: Integrate quantum-resistant encryption technologies (e.g., Lattice-based signature, MPC, HE) in AI data processing, NFT metadata storage, and Token transactions, and use zero-knowledge proof (ZKP) to verify data authenticity.
+- **Smart Contract Security**: Conduct static code analysis using tools like Move Prover and third-party security review before deployment to ensure contract vulnerability-free.
 
-### 1.6 常见问题与调试指南
+### 1.6 Common Issues and Debugging Guide
 
-- **钱包连接失败**
-  - 检查浏览器插件是否正确安装，确保网络指向 Aptos Testnet。
-- **智能合约部署错误**
-  - 查看 Aptos CLI 日志，检查 Move 代码语法，确认依赖库版本无误。
-- **前后端交互异常**
-  - 检查 API 调用路径及跨域设置，确保智能合约地址正确配置。
-- **AI 模型响应慢**
-  - 分析数据预处理和模型推理流程，调试日志捕获关键环节延迟，必要时进行模型参数调优。
-
----
-
-## 用户文档
-
-### 2.1 产品概述与核心功能
-
-Life++ 是一个去中心化的智能生态系统，主要功能包括：
-- **数字身份与隐私保护**：通过钱包连接生成唯一身份，确保用户数据自主权。
-- **数据归集与意识上传**：采集用户多模态数据，并通过加密技术上链存证。
-- **AI 分身生成**：利用 AI 模型对上传数据进行意识提炼，生成个性化 AI 分身。
-- **Robot NFT 资产化**：自动生成数字资产（Robot NFT），用户可用于展示、交易及跨链流转。
-- **Token 经济与治理**：Life++ Token 用于平台内支付、激励与去中心化治理，用户参与投票决策。
-
-### 2.2 注册与身份认证
-
-1. **访问入口**
-   - 打开 Life++ 官方网站或下载 dApp 应用。
-2. **连接钱包**
-   - 在首页点击"连接钱包"，选择支持 Aptos 的 Petra Wallet。
-   - 按照提示完成钱包连接，系统自动生成数字身份。
-3. **身份确认**
-   - 系统展示身份认证结果，并详细说明数据隐私政策与加密措施。
-
-### 2.3 数据归集与意识上传
-
-1. **数据授权**
-   - 登录后进入"我的数据"页面，点击"授权数据采集"。
-   - 选择希望采集的数据来源（社交账号、设备数据等），并确认授权。
-2. **数据上传**
-   - 系统自动将数据进行预处理、加密，并显示实时上传进度。
-   - 上传完成后，用户可在"数据摘要"中查看已采集数据类型和数量。
-
-### 2.4 AI 分身生成与定制
-
-1. **启动生成**
-   - 在"我的分身"页面点击"生成 AI 分身"，系统开始处理上传数据。
-2. **分身预览**
-   - 等待过程中，界面显示加载动画和进度提示。
-   - 生成完成后，展示初步的 AI 分身形象及能力标签。
-3. **个性化定制**
-   - 用户可点击"定制分身"，选择外观、语音和交互模式等参数。
-   - 实时预览并测试分身对话效果，确认后保存定制设置。
-
-### 2.5 Robot NFT 生成与管理
-
-1. **NFT 生成**
-   - 在确认 AI 分身后，系统自动生成唯一的 Robot NFT。
-   - NFT 预览页面显示 NFT 图像、生成时间、唯一标识等元数据。
-2. **资产管理**
-   - 用户在"我的资产"页面查看 NFT 列表，可选择进行交易、租赁或跨链操作。
-   - 提供详细的资产交易记录和跨链操作指引。
-
-### 2.6 Token 经济与治理参与
-
-1. **Token 钱包管理**
-   - 在"我的钱包"页面，展示 Life++ Token 余额、最近交易记录及资产分布。
-2. **治理参与**
-   - 用户可在"治理"页面查看当前提案，参与投票或提交新提案。
-   - 投票过程直观、简单，系统实时记录投票结果并展示治理进程。
-3. **激励与奖励**
-   - 完成数据上传、分身定制、NFT 交易等任务后，系统自动发放相应 Token 奖励。
-
-### 2.7 用户常见问题
-
-- **注册过程中遇到连接失败？**
-  - 检查网络状态，确认钱包插件安装正确，必要时重启浏览器。
-- **数据上传异常或超时？**
-  - 确保网络稳定，若持续出现问题请联系技术支持。
-- **AI 分身生成不符合预期？**
-  - 尝试调整上传数据或定制参数，如有疑问可查看帮助文档或在线反馈。
-- **NFT 交易失败或延迟？**
-  - 检查钱包余额、网络状态以及跨链设置，若问题依旧请参照 FAQ 获取解决方案。
+- **Wallet Connection Failure**
+  - Check if browser plugin is correctly installed and ensure network points to Aptos Testnet.
+- **Smart Contract Deployment Error**
+  - Check Aptos CLI logs for Move code syntax errors and confirm dependency library versions are correct.
+- **Frontend-Backend Interaction Exception**
+  - Check API call path and cross-domain settings to ensure correct configuration of smart contract address.
+- **AI Model Response Slow**
+  - Analyze data preprocessing and model inference process, capture key环节延迟 in logs, and adjust model parameters if necessary.
 
 ---
 
-## 附录
+## User Documentation
 
-- **技术参考资料**：Aptos Developer Documentation、Move 语言文档、相关 AI 模型白皮书、跨链协议指南等。
-- **联系方式**：项目官网、技术支持邮件、社区论坛与 Discord 交流群链接。
+### 2.1 Product Overview and Core Functions
 
----
+Life++ is a decentralized intelligent ecosystem, with main functions including:
+- **Digital Identity and Privacy Protection**: Generate unique identity through wallet connection to ensure user data autonomy.
+- **Data Aggregation and Consciousness Upload**: Collect multimodal data from users through encryption technology, and upload it to the blockchain for notarization.
+- **AI Avatar Generation**: Use AI models to extract consciousness from uploaded data, generating personalized AI avatars.
+- **Robot NFT Assetization**: Automatically generate digital assets (Robot NFT) for users to showcase, trade, and cross-chain transfer.
+- **Token Economy and Governance**: Life++ Token is used for platform payments, incentives, and decentralized governance, with user participation in decision-making.
 
-通过本详细的技术和用户文档，开发团队和最终用户均可获得全面指引，确保 Life++ 项目在 Aptos EverMove Hackerhouse 期间实现高效开发、部署与良好用户体验。
+### 2.2 Registration and Identity Authentication
 
-下面给出一份针对 Life++ 项目的 MVP（最小可行性产品）搭建建议以及适用的产品开发路线图，旨在帮助团队在有限时间内快速验证核心功能与市场价值。
+1. **Access Entry**
+   - Open Life++ official website or download dApp application.
+2. **Connect Wallet**
+   - Click "Connect Wallet" on the homepage, select Petra Wallet supporting Aptos.
+   - Complete wallet connection through prompts, system generates digital identity automatically.
+3. **Identity Confirmation**
+   - System displays identity authentication results, and explains data privacy policy and encryption measures in detail.
 
----
+### 2.3 Data Aggregation and Consciousness Upload
 
-## MVP 搭建建议
+1. **Data Authorization**
+   - Log in to "My Data" page, click "Authorize Data Collection".
+   - Select the data sources you wish to collect (social accounts, device data, etc.) and confirm authorization.
+2. **Data Upload**
+   - System automatically preprocesses data, encrypts it, and displays real-time upload progress.
+   - After upload completion, users can view the types and quantity of collected data in "Data Summary".
 
-### 1. 明确核心功能
+### 2.4 AI Avatar Generation and Customization
 
-在 MVP 阶段，重点应放在验证以下关键功能：
+1. **Start Generation**
+   - Click "Generate AI Avatar" on "My Avatars" page, system begins processing uploaded data.
+2. **Avatar Preview**
+   - During the wait, the interface displays loading animation and progress prompt.
+   - Upon completion, the preliminary AI avatar image and ability tags are displayed.
+3. **Personalization Customization**
+   - Users can click "Customize Avatar", select appearance, voice, interaction mode, etc. parameters.
+   - Real-time preview and test avatar conversation effect, confirm customization settings after saving.
 
-- **用户身份与数据上传**  
-  - 利用钱包连接实现数字身份认证  
-  - 快速采集并加密处理用户的部分多模态数据（例如文本和简单的图像）
+### 2.5 Robot NFT Generation and Management
 
-- **AI 分身生成**  
-  - 基于预训练的轻量级 AI 模型对用户数据进行意识提炼  
-  - 生成初步的 AI 分身预览，支持简单的个性化配置（如外观、语音风格）
+1. **NFT Generation**
+   - After confirming AI avatar, system automatically generates a unique Robot NFT.
+   - NFT preview page displays NFT image, generation time, unique identifier, etc. metadata.
+2. **Asset Management**
+   - Users can view NFT list in "My Assets" page, choose to trade, lease, or cross-chain operations.
+   - Detailed asset transaction records and cross-chain operation guidance are provided.
 
-- **Robot NFT 资产化**  
-  - 自动生成并上链唯一的 Robot NFT（包含基本元数据，如生成时间、唯一标识）  
-  - 基于 Aptos 智能合约存证，确保 NFT 的不可篡改性
+### 2.6 Token Economy and Governance Participation
 
-- **Token 经济（基础交互）**  
-  - 简单实现 Life++ Token 的发放与余额展示  
-  - 初步支持用户参与简单的治理投票或奖励领取
+1. **Token Wallet Management**
+   - Show Life++ Token balance, recent transaction records, and asset distribution in "My Wallet" page.
+2. **Governance Participation**
+   - Users can view current proposals in "Governance" page, participate in voting or submit new proposals.
+   - Voting process is intuitive and simple, system records voting results and governance progress in real-time.
+3. **Incentives and Rewards**
+   - After completing data upload, avatar customization, NFT trading, etc., system automatically issues corresponding Token rewards.
 
-### 2. 快速迭代与反馈
+### 2.7 User Common Issues
 
-- **短周期迭代**  
-  - 以 5 天为一个开发周期，确保每个核心模块先实现最基本功能，然后快速迭代优化
-- **用户参与测试**  
-  - 在内部或小范围用户群中进行测试，收集体验反馈，验证核心功能逻辑和用户流程
-- **风险控制**  
-  - 针对数据安全、跨链交互及智能合约部分提前进行技术验证，防范关键环节风险
-
-### 3. 技术选型和工具
-
-- **前端**：React + Aptos SDK，保证前端界面交互直观、钱包连接流畅  
-- **后端**：Node.js 实现数据归集与 API 网关；简化数据预处理与调用 AI 接口  
-- **智能合约**：Move 语言开发 Robot NFT 与 Token 合约，部署于 Aptos Testnet  
-- **AI 模型**：基于预训练模型进行意识提炼，接口采用 Flask 或 FastAPI 快速集成  
-- **CI/CD**：利用 GitHub Actions 或 GitLab CI 进行自动化构建、测试和部署
-
----
-
-## 产品开发路线图
-
-下面给出一份以 5 天为周期的 MVP 快速开发路线图，适用于 Aptos EverMove Hackerhouse 期间的项目推进：
-
-### Day 1：需求评审与环境搭建
-- **任务**：
-  - 产品团队快速确认 MVP 需求文档，明确核心功能范围
-  - 全栈团队搭建开发环境（Aptos CLI/SDK、前后端基础项目架构、智能合约开发环境）
-  - AI 算法团队确定预训练模型和简单接口原型
-- **产出**：项目基础代码库、初步技术方案文档
-
-### Day 2：核心模块开发 I——身份认证与数据上传
-- **任务**：
-  - 前端开发实现钱包连接与用户身份创建页面
-  - 后端实现数据上传 API，支持简单的数据预处理与加密
-  - 安全团队验证数据传输加密和隐私链接口
-- **产出**：用户身份与数据上传模块（带有实时进度反馈）
-
-### Day 3：核心模块开发 II——AI 分身生成与 NFT 铸造
-- **任务**：
-  - AI 算法团队构建简单意识提炼与 AI 分身生成接口（返回预览结果）
-  - 前端接入 AI 模型接口，实现分身预览和个性化定制（简化配置项）
-  - 全栈团队开发并部署 Robot NFT 智能合约，完成 NFT 自动生成并上链存证
-- **产出**：AI 分身生成流程与初步 Robot NFT 铸造流程
-
-### Day 4：核心模块整合与 Token 基础交互
-- **任务**：
-  - 前后端整合各核心模块，确保数据流无缝对接（身份、数据上传、AI 分身、NFT）
-  - 开发 Life++ Token 的基础合约及前端展示页面，支持 Token 余额查询与简单发放
-  - 跨链及隐私链接口预留基础方案（非核心功能可简化处理）
-- **产出**：核心功能模块集成，形成可完整体验的 MVP 系统
-
-### Day 5：测试、优化与 Demo 制作
-- **任务**：
-  - 全流程系统测试：验证注册、数据上传、AI 分身生成、NFT 铸造、Token 交互全链路稳定性
-  - 调试并优化用户体验（界面响应、错误提示、流畅性等）
-  - 制作 Demo 视频和演示文稿，准备在社区和评审现场展示
-- **产出**：稳定可演示的 MVP 产品、测试报告和 Demo 材料
+- **Connection Failure During Registration?**
+  - Check network status, confirm wallet plugin installation, and restart browser if necessary.
+- **Data Upload Exception or Timeout?**
+  - Ensure network stability, contact technical support if persistent issues occur.
+- **AI Avatar Generation Not as Expected?**
+  - Try adjusting uploaded data or customizing parameters, consult help documentation or online feedback if needed.
+- **NFT Trading Failure or Delay?**
+  - Check wallet balance, network status, and cross-chain settings, refer to FAQ for solutions if issues persist.
 
 ---
 
-## 总结
+## Appendix
 
-这份 MVP 搭建建议和产品开发路线图为 Life++ 项目在 Aptos EverMove Hackerhouse 期间提供了清晰、可行的开发路径，既保证核心功能验证，又为后续功能扩展和产品迭代奠定坚实基础。通过不断迭代和用户反馈，团队可逐步完善完整的产品生态，并在后续开发中引入更丰富的跨链交互、安全机制及高级 AI 算法优化。
-
-
-
-下面提供一份 Life++ 项目的启动指引文档，适用于 Aptos EverMove Hackerhouse 期间的开发与部署。该文档详细描述了环境准备、依赖安装、智能合约部署、前后端启动及测试调试步骤，帮助团队快速启动项目。
+- **Technical Reference Materials**: Aptos Developer Documentation, Move language documentation, related AI model white papers, cross-chain protocol guidelines, etc.
+- **Contact Information**: Project official website, technical support email, community forum, and Discord community link.
 
 ---
 
-# Life++ 项目启动指引
+Through this detailed technical and user documentation, both development teams and end users can obtain comprehensive guidance, ensuring efficient development, deployment, and user experience during Aptos EverMove Hackerhouse.
 
-本文档旨在指导开发团队搭建开发环境、部署智能合约、运行前后端服务，并完成基础测试。请按照以下步骤进行操作：
+Below is a proposal for MVP (Minimum Viable Product) setup and product development roadmap for Life++ project, aiming to help teams quickly validate core functionalities and market value within limited time.
 
 ---
 
-## 1. 前期准备
+## MVP Setup Proposal
 
-### 1.1 开发环境要求
+### 1. Clear Core Functions
 
-- **操作系统**：推荐 macOS、Linux 或 Windows（WSL 环境）
-- **Node.js**：建议 v16 及以上版本
-- **Git**：确保已安装 Git 客户端
-- **Docker（可选）**：用于快速搭建依赖服务
+In MVP stage, focus should be on verifying the following key functionalities:
 
-### 1.2 必备工具
+- **User Identity and Data Upload**  
+  - Use wallet connection to implement digital identity authentication  
+  - Quickly collect and encrypt user's multimodal data (e.g., text and simple images)
+
+- **AI Avatar Generation**  
+  - Based on pre-trained lightweight AI models, extract consciousness from user data  
+  - Generate preliminary AI avatar preview, supporting simple personalized configuration (e.g., appearance, voice style)
+
+- **Robot NFT Assetization**  
+  - Automatically generate and on-chain unique Robot NFT (containing basic metadata, such as generation time, unique identifier)  
+  - Based on Aptos smart contract notarization, ensuring NFT immutability
+
+- **Token Economy (Basic Interaction)**  
+  - Simple implementation of Life++ Token issuance and balance display  
+  - Preliminary support for user participation in simple governance voting or reward claiming
+
+### 2. Rapid Iteration and Feedback
+
+- **Short Iteration Cycle**  
+  - Develop core modules in 5-day cycles to ensure basic functionality is achieved first, then quickly iterate and optimize
+- **User Testing**  
+  - Conduct testing within internal or small user group to collect user experience feedback, verify core functionality logic and user flow
+- **Risk Control**  
+  - Conduct technical verification in advance for data security, cross-chain interaction, and smart contract aspects to prevent risks in key areas
+
+### 3. Technology Selection and Tools
+
+- **Frontend**: React + Aptos SDK, ensuring intuitive frontend interaction and smooth wallet connection  
+- **Backend**: Node.js for data aggregation and API gateway; simplify data preprocessing and call AI interface  
+- **Smart Contract**: Move language for Robot NFT and Token contracts, deployed on Aptos Testnet  
+- **AI Model**: Based on pre-trained model for consciousness extraction, interface uses Flask or FastAPI for quick integration  
+- **CI/CD**: Use GitHub Actions or GitLab CI for automated build, test, and deployment
+
+---
+
+## Product Development Roadmap
+
+Below is a 5-day MVP rapid development roadmap, applicable to project advancement during Aptos EverMove Hackerhouse:
+
+### Day 1: Requirements Review and Environment Setup
+- **Tasks**:
+  - Product team quickly confirms MVP requirements document, clarifies scope of core functionalities
+  - Full-stack team sets up development environment (Aptos CLI/SDK, basic project architecture of frontend and backend, smart contract development environment)
+  - AI algorithm team determines pre-trained model and simple interface prototype
+- **Outputs**: Project basic codebase, preliminary technical solution document
+
+### Day 2: Core Module Development I - Identity Authentication and Data Upload
+- **Tasks**:
+  - Frontend development implements wallet connection and user identity creation page
+  - Backend implements data upload API, supporting simple data preprocessing and encryption
+  - Security team verifies data transmission encryption and privacy link interface
+- **Outputs**: User identity and data upload module (with real-time progress feedback)
+
+### Day 3: Core Module Development II - AI Avatar Generation and NFT Minting
+- **Tasks**:
+  - AI algorithm team constructs simple consciousness extraction and AI avatar generation interface (returning preview results)
+  - Frontend integrates AI model interface, implementing avatar preview and personalized customization (simplified configuration items)
+  - Full-stack team develops and deploys Robot NFT smart contracts, completing automatic generation and on-chain notarization of NFTs
+- **Outputs**: AI avatar generation process and preliminary Robot NFT minting process
+
+### Day 4: Core Module Integration and Token Basic Interaction
+- **Tasks**:
+  - Integrate all core modules to ensure seamless data flow (identity, data upload, AI avatar, NFT)
+  - Develop basic contracts for Life++ Token and frontend display page, supporting Token balance query and simple issuance
+  - Pre-establish basic solution for cross-chain and privacy link (non-core functionalities can be simplified)
+- **Outputs**: Integrated core functionality modules, forming a complete MVP system
+
+### Day 5: Testing, Optimization, and Demo Preparation
+- **Tasks**:
+  - Full-process system testing: verify registration, data upload, AI avatar generation, NFT minting, and Token interaction across the entire chain stability
+  - Debug and optimize user experience (interface responsiveness, error handling, smoothness, etc.)
+  - Prepare Demo video and presentation slides for community and review site demonstration
+- **Outputs**: Stable, demonstrable MVP product, test reports, and Demo materials
+
+---
+
+## Conclusion
+
+This MVP setup proposal and product development roadmap provide clear, feasible development path for Life++ project during Aptos EverMove Hackerhouse, ensuring core functionality verification while laying solid foundation for subsequent feature expansion and product iteration. Through continuous iteration and user feedback, the team can gradually improve the complete product ecosystem and introduce richer cross-chain interaction, security mechanisms, and advanced AI algorithm optimizations in subsequent development.
+
+
+
+Below is a startup guide document for Life++ project, applicable to project development and deployment during Aptos EverMove Hackerhouse. This document describes environment setup, dependency installation, smart contract deployment, frontend and backend startup, and testing and debugging steps to help teams quickly set up the project.
+
+---
+
+# Life++ Project Startup Guide
+
+This document aims to guide development teams to set up development environment, deploy smart contracts, run backend services, and complete basic testing. Please follow these steps:
+
+---
+
+## 1. Preliminary Preparation
+
+### 1.1 Development Environment Requirements
+
+- **Operating System**: Recommended macOS, Linux, or Windows (WSL environment)
+- **Node.js**: Suggested v16 or later version
+- **Git**: Ensure Git client is installed
+- **Docker (Optional)**: Used for quickly setting up dependent services
+
+### 1.2 Essential Tools
 
 - **Aptos CLI & SDK**  
-  - 下载并安装 Aptos CLI：[Aptos CLI 安装文档](https://aptos.dev/)
-  - 配置 Aptos SDK 环境（支持 JavaScript/TypeScript），参考 [Aptos SDK 文档](https://aptos.dev/sdk/js)
-- **钱包工具**  
-  - 安装 Petra Wallet 或其他支持 Aptos 的钱包
-- **代码编辑器**  
-  - 推荐 VS Code，并安装相关插件（如 Solidity、Move 语言支持）
+  - Download and install Aptos CLI: [Aptos CLI Installation Guide](https://aptos.dev/)
+  - Configure Aptos SDK environment (supporting JavaScript/TypeScript), refer to [Aptos SDK Documentation](https://aptos.dev/sdk/js)
+- **Wallet Tools**  
+  - Install Petra Wallet or other wallets supporting Aptos
+- **Code Editor**  
+  - Recommended VS Code, with related plugins (e.g., Solidity, Move language support)
 
 ---
 
-## 2. 项目克隆与依赖安装
+## 2. Project Clone and Dependency Installation
 
-### 2.1 克隆代码仓库
+### 2.1 Clone Code Repository
 
-在终端中执行以下命令，将代码仓库克隆至本地：
+Execute the following command in terminal to clone the code repository to local:
 
 ```bash
 git clone https://github.com/your-org/lifeplusplus.git
 cd lifeplusplus
 ```
 
-### 2.2 安装前端依赖
+### 2.2 Install Frontend Dependencies
 
-进入前端目录并安装依赖：
+Enter frontend directory and install dependencies:
 
 ```bash
 cd frontend
 npm install
 ```
 
-### 2.3 安装后端依赖
+### 2.3 Install Backend Dependencies
 
-进入后端目录并安装依赖：
+Enter backend directory and install dependencies:
 
 ```bash
 cd ../backend
 npm install
 ```
 
-### 2.4 智能合约开发环境
+### 2.4 Smart Contract Development Environment
 
-- 确保已安装 Move 开发环境，参考 Aptos 官方文档
-- 在合约目录中编写与调试智能合约（Robot NFT & Life++ Token）
+- Ensure Move development environment is set up, refer to Aptos official documentation
+- Write and debug smart contracts in the contract directory (Robot NFT & Life++ Token)
 
 ---
 
-## 3. 环境配置与链接
+## 3. Environment Configuration and Linking
 
-### 3.1 配置 Aptos Testnet
+### 3.1 Configure Aptos Testnet
 
-- 登录 Aptos CLI 并设置 Testnet 连接：
+- Log in to Aptos CLI and set Testnet connection:
 
 ```bash
 aptos init --profile testnet
 ```
 
-- 获取 Testnet 钱包地址和私钥，并确保配置文件中正确更新
+- Obtain Testnet wallet address and private key, and ensure correct update in configuration file
 
-### 3.2 配置跨链与隐私链参数
+### 3.2 Configure Cross-Chain and Privacy Chain Parameters
 
-- 根据项目需求，在配置文件中添加 Solana 及 Quorum 隐私链的相关参数
-- 确保跨链接口模块已正确配置（如跨链 API 及网关地址）
+- Add Solana and Quorum privacy chain parameters to configuration file based on project requirements
+- Ensure cross-chain link module is correctly configured (e.g., cross-chain API and gateway address)
 
 ---
 
-## 4. 智能合约编译与部署
+## 4. Smart Contract Compilation and Deployment
 
-### 4.1 编译 Move 智能合约
+### 4.1 Compile Move Smart Contracts
 
-在合约目录下执行编译命令，确保合约语法无误：
+Execute compilation command in the contract directory to ensure syntax is correct:
 
 ```bash
 aptos move compile --package-dir .
 ```
 
-### 4.2 部署合约至 Testnet
+### 4.2 Deploy Contracts to Testnet
 
-使用 Aptos CLI 部署合约：
+Deploy contracts using Aptos CLI:
 
 ```bash
 aptos move publish --package-dir . --profile testnet
 ```
 
-- 部署完成后，请记录合约地址和部署日志，便于后续前端调用
+- After deployment, please record contract address and deployment logs for subsequent frontend invocation
 
 ---
 
-## 5. 前后端启动
+## 5. Frontend and Backend Startup
 
-### 5.1 启动前端服务
+### 5.1 Start Frontend Service
 
-在 `frontend` 目录下启动前端应用：
+Start frontend application in `frontend` directory:
 
 ```bash
 npm run start
 ```
 
-- 前端启动后，可通过浏览器访问 `http://localhost:3000` 查看界面
+- Frontend starts up, accessible through browser at `http://localhost:3000`
 
-### 5.2 启动后端服务
+### 5.2 Start Backend Service
 
-在 `backend` 目录下启动后端服务：
+Start backend service in `backend` directory:
 
 ```bash
 npm run start
 ```
 
-- 后端服务负责处理数据归集、AI 模型调用与合约接口请求
+- Backend service handles data aggregation, AI model invocation, and contract interface requests
 
 ---
 
-## 6. 功能测试与调试
+## 6. Function Testing and Debugging
 
-### 6.1 合约功能测试
+### 6.1 Contract Function Testing
 
-- 使用 Aptos CLI 及前端界面测试 Robot NFT 铸造、Token 交易及治理功能
-- 查看链上数据是否正确上链，验证合约交互逻辑
+- Use Aptos CLI and frontend interface to test Robot NFT minting, Token transactions, and governance functions
+- Check if data is correctly on-chain, verify contract interaction logic
 
-### 6.2 前端交互调试
+### 6.2 Frontend Interaction Debugging
 
-- 检查钱包连接、数据上传、AI 分身生成及 NFT 展示流程是否流畅
-- 使用浏览器开发者工具调试前端错误，并及时调整代码
+- Check wallet connection, data upload, AI avatar generation, and NFT display flow to ensure smoothness
+- Use browser developer tools to debug frontend errors and adjust code accordingly
 
-### 6.3 后端日志监控
+### 6.3 Backend Logging Monitoring
 
-- 查看后端日志，确认 AI 模型调用与数据归集过程正常
-- 对跨链及隐私链接口进行压力测试，确保数据传输稳定
-
----
-
-## 7. 文档与反馈
-
-- 在项目 Wiki 中记录开发过程、部署日志及常见问题
-- 内置反馈通道，团队成员及时提交改进建议
-- 定期召开内部评审会议，确保项目在预定时间内交付
+- Check backend logs to confirm normal AI model invocation and data aggregation process
+- Conduct stress testing on cross-chain and privacy link interfaces to ensure data transmission stability
 
 ---
 
-## 8. 常见问题及解决方案
+## 7. Documentation and Feedback
 
-- **问题：钱包连接失败**  
-  解决方案：检查钱包插件是否正确安装、网络是否连接至 Aptos Testnet，并验证配置文件中的地址信息
-
-- **问题：智能合约部署报错**  
-  解决方案：检查 Move 合约语法及依赖，确保 Aptos CLI 已正确配置 Testnet 环境
-
-- **问题：前后端交互异常**  
-  解决方案：检查 API 地址、跨域设置及前端调用日志，确保智能合约地址与 API 配置一致
+- Record development process, deployment logs, and common issues in project Wiki
+- Built-in feedback channel for team members to submit improvement suggestions
+- Regular internal review meetings to ensure project delivery within scheduled timeframe
 
 ---
 
-## 9. 其他注意事项
+## 8. Common Issues and Solutions
 
-- **版本管理**：确保代码提交遵循 Git 分支管理规范，定期合并开发分支
-- **安全性检查**：在每次合约更新后，执行自动化安全扫描工具，防范潜在漏洞
-- **文档更新**：实时更新启动指引文档，确保新成员能迅速上手
+- **Issue: Wallet Connection Failure**  
+  Solution: Check if wallet plugin is correctly installed, network connection to Aptos Testnet, and verify address information in configuration file
+
+- **Issue: Smart Contract Deployment Error**  
+  Solution: Check Move code syntax and dependencies, ensure Aptos CLI is correctly configured for Testnet environment
+
+- **Issue: Frontend-Backend Interaction Exception**  
+  Solution: Check API address, cross-domain settings, and frontend invocation logs to ensure correct configuration of smart contract address and API
 
 ---
 
-通过以上启动指引，团队可以在 Aptos EverMove Hackerhouse 期间迅速搭建 Life++ 项目环境，完成从代码部署到用户体验验证的全流程。请团队成员务必仔细阅读并按照文档执行，遇到问题及时沟通，共同推动项目落地。
+## 9. Other Considerations
+
+- **Version Control**: Ensure code submissions follow Git branch management conventions, merge development branches regularly
+- **Security Scanning**: Perform automated security scanning after each contract update to prevent potential vulnerabilities
+- **Documentation Update**: Keep startup guide document up-to-date to ensure new members can quickly get up to speed
+
+---
+
+Through these startup guidelines, teams can quickly set up Life++ project environment during Aptos EverMove Hackerhouse, completing the entire process from code deployment to user experience verification. Please ensure all team members carefully read and follow the documentation, promptly communicate any issues, and work together to bring the project to fruition.
+
+- **Token Economy (Basic Interaction)**  
+  - Simple implementation of Life++ Token issuance and balance display  
+  - Preliminary support for user participation in simple governance voting or reward claiming
+
+### 2. Rapid Iteration and Feedback
+
+- **Short Iteration Cycle**  
+  - Develop core modules in 5-day cycles to ensure basic functionality is achieved first, then quickly iterate and optimize
+- **User Testing**  
+  - Conduct testing within internal or small user group to collect user experience feedback, verify core functionality logic and user flow
+- **Risk Control**  
+  - Conduct technical verification in advance for data security, cross-chain interaction, and smart contract aspects to prevent risks in key areas
+
+### 3. Technology Selection and Tools
+
+- **Frontend**: React + Aptos SDK, ensuring intuitive frontend interaction and smooth wallet connection  
+- **Backend**: Node.js for data aggregation and API gateway; simplify data preprocessing and call AI interface  
+- **Smart Contract**: Move language for Robot NFT and Token contracts, deployed on Aptos Testnet  
+- **AI Model**: Based on pre-trained model for consciousness extraction, interface uses Flask or FastAPI for quick integration  
+- **CI/CD**: Use GitHub Actions or GitLab CI for automated build, test, and deployment
+
+---
+
+## Product Development Roadmap
+
+Below is a 5-day MVP rapid development roadmap, applicable to project advancement during Aptos EverMove Hackerhouse:
+
+5. **Token Economy and Governance**  
+   - All transactions, payments, and governance operations are conducted through Life++ Token. Users view assets through frontend, participate in governance voting, and all operations are synchronized to the blockchain in real-time.
+
+6. **Cross-Chain Interaction**  
+   - When cross-chain interaction is needed, backend calls cross-chain API to transfer Tokens between Aptos and Solana, ensuring NFT metadata is stored in Quorum privacy chain.
