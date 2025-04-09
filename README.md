@@ -39,7 +39,7 @@ This project leverages 0G's Data Availability (DA) layer to build a cross-chain 
 
 ##### 3.1 **Frontend**
 - **Functions**: Users select NFTs for locking, obtain signatures, and submit signature verification requests through the frontend interface.
-- **Tech Stack**: React, Vue.js, Web3.js, Ethers.js for blockchain interaction.
+- **Tech Stack**: Next.js, Vue.js, Web3.js, Ethers.js for blockchain interaction.
 
 ##### 3.2 **Backend**
 - **Functions**: Generate signatures, record data, verify signatures, and interact with 0G DA layer.
